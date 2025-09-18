@@ -29,8 +29,9 @@ public class AppDb : DbContext
         var assetsComparer = new ValueComparer<List<AssetDto>>(
             (a, b) => JsonSerializer.Serialize(a, jsonOptions) == JsonSerializer.Serialize(b, jsonOptions),
             v => JsonSerializer.Serialize(v, jsonOptions).GetHashCode(),
-            v => v  null ? new List<AssetDto>() : v.ToList()
+            v => v == null ? new List<AssetDto>() : v.ToList()
         );
+
 
         modelBuilder.Entity<Portfolio>(entity =>
         {

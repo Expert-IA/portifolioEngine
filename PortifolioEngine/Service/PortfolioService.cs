@@ -19,7 +19,7 @@ public class PortfolioService : IPortfolioService
             UserId = dto.UserId,
             Name = dto.Name,
             TotalAmount = dto.TotalAmount,
-            Assets = dto.Assets,
+            Assets = dto.Assets.ToList(),
             UpdatedAt = DateTime.UtcNow
         };
 

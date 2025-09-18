@@ -12,6 +12,6 @@ public class Portfolio
     public Guid UserId { get; set; }
     public string Name { get; set; } = string.Empty;
     public decimal TotalAmount { get; set; }
-    public List<AssetDto> Assets { get; set; } = new();
+    public List<AssetDto> Assets { get; set; } 
     public DateTime UpdatedAt { get; set; }
 }

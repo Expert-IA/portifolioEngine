@@ -9,5 +9,5 @@ namespace InvestorTrust.Contracts.Portfolios;
 public sealed record PortfolioUpdateDto(
     [Required, StringLength(160)] string Name,
     [Range(0, double.MaxValue)] decimal TotalAmount,
-    [MinLength(1)] IReadOnlyList<AssetDto> Assets
+    [MinLength(1)] List<AssetDto> Assets
 );

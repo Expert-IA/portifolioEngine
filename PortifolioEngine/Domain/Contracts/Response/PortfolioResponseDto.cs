@@ -9,6 +9,6 @@ public sealed record PortfolioResponseDto(
     Guid UserId,
     string Name,
     decimal TotalAmount,
-    IReadOnlyList<AssetDto> Assets,
+    List<AssetDto> Assets,
     DateTime UpdatedAt
 );

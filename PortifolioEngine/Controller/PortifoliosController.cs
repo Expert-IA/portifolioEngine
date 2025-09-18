@@ -29,7 +29,12 @@ public class PortfoliosController : ControllerBase
     public async Task<ActionResult<IEnumerable<PortfolioResponseDto>>> GetByUser(Guid userId)
     {
         var result = await _service.GetByUserAsync(userId);
-        return Ok(result);
+        var portfolios = result.ToList();
+
+        if (portfolios.Count == 0)
+            return NotFound();
+
+        return Ok(portfolios);
     }
 
     [HttpPut("{id:guid}")]

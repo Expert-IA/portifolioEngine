@@ -10,8 +10,6 @@ jobs:
   build-and-run:
     name: Build and Run .NET App
     runs-on: ubuntu-latest
-    outputs:
-      app-url: ${{ steps.start-app.outputs.app-url }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -28,16 +26,14 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Start API (background)
-        id: start-app
         run: |
           dotnet run --no-build --urls "http://localhost:5109" &
-          echo "app-url=http://localhost:8000" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Wait for the API to start (health check)
         run: |
           for i in {1..30}; do
-            if curl -s http://localhost:8000/; then
+            if curl -s http://localhost:5109/; then
               echo "API is up!"
               exit 0
             fi
@@ -57,5 +53,5 @@ jobs:
         with:
           target: 'http://localhost:5109'
           token: ${{ secrets.GITHUB_TOKEN }}
-          issue_title: 'Relatório de Vulnerabilidades DAST da ExpertIA'
+          issue_title: 'Relatório de Vulnerabilidades DAST da FinSecure'
           fail_action: true

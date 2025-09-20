@@ -5,7 +5,7 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
-
+    
 jobs:
   build-and-run:
     name: Build and Run .NET App
@@ -13,6 +13,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: List files in repo root
+        run: ls -la
+
+      # Se seu projeto está em uma subpasta, troque 'src/SeuProjeto.csproj' pelo caminho correto
+      - name: List .NET projects
+        run: find . -name "*.csproj"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -22,9 +29,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build
-        run: dotnet build --no-restore
+      - name: Build (diagnóstico detalhado)
+        run: dotnet build --no-restore -v diag
 
+      # Se tiver mais de um projeto, especifique o caminho do .csproj:
+      # Exemplo: dotnet run --project src/SeuProjeto.csproj --no-build --urls "http://localhost:5109" &
       - name: Start API (background)
         run: |
           dotnet run --no-build --urls "http://localhost:5109" &
